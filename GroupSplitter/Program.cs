@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace GroupSplitter
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
          //   int outGroupsCount = 0;
-            CLiUI cLiUi = new CLiUI();
+            CLiUI ui = new CLiUI();
+            bool success = ui.PrintHelloMessage();
+            if (!success)
+            {
+                Console.WriteLine("Bye bye");
+                return;
+            }
+
+            success = ui.GroupCountRead(out int groupsCount);
+            if (!success)
+            {
+                Console.WriteLine("Invalid groups number.");
+                return;
+            }
+
+            Console.WriteLine(groupsCount);
             DataLoader dataLoader = new DataLoader(new List<string>(){"../dane/dane.txt"});
             dataLoader.LoadMembers();
         }
