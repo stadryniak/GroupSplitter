@@ -7,7 +7,7 @@ namespace GroupSplitter
     {
         static void Main()
         {
-         //   int outGroupsCount = 0;
+            //   int outGroupsCount = 0;
             var ui = new CLiUi();
             bool success = ui.PrintHelloMessage();
             if (!success)
@@ -23,8 +23,9 @@ namespace GroupSplitter
                 return;
             }
 
-            Console.WriteLine(groupsCount);
-            DataLoader dataLoader = new DataLoader(new List<string>(){"../dane/dane.txt"});
+            Console.WriteLine(ui.PathRead(out var path));
+
+            DataLoader dataLoader = new DataLoader(new List<string>() { "../dane/dane.txt" });
             dataLoader.LoadMembers();
         }
     }
