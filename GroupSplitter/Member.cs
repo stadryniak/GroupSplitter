@@ -2,6 +2,9 @@
 
 namespace GroupSplitter
 {
+    /// <summary>
+    /// Holds data about one member
+    /// </summary>
     class Member
     {
         public static Member CreateInstance(string firstName, string lastName, List<int> groupsPreference)

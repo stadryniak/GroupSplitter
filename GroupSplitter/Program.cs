@@ -10,9 +10,10 @@ namespace GroupSplitter
     {
         static void Main(string[] args)
         {
-            Member member = Member.CreateInstance("a", "b", new List<int>() { 1, 2, 3 });
-
-            Console.WriteLine(member);
+         //   int outGroupsCount = 0;
+            CLiUI cLiUi = new CLiUI();
+            DataLoader dataLoader = new DataLoader(new List<string>(){"../dane/dane.txt"});
+            dataLoader.LoadMembers();
         }
     }
 }
