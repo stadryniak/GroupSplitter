@@ -19,5 +19,16 @@ namespace GroupSplitter
         private string FirstName { get; set; }
         private string LastName { get; set; }
         private List<int> GroupsPreference { get; set; }
+
+        public override string ToString()
+        {
+            string groups = "";
+            foreach (var i in GroupsPreference)
+            {
+                groups += i.ToString() + " ";
+            }
+            groups.TrimEnd();
+            return FirstName + " " + LastName + " " + groups;
+        }
     }
 }
