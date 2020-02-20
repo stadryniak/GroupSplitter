@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
-using GroupSplitter;
 
 namespace GroupSplitter
 {
     class DataLoader
     {
-        public DataLoader(List<string> path)
+        public DataLoader(List<string> paths)
         {
-            PathsList = path;
+            PathsList = paths;
             Members = new List<Member>();
         }
 
-        List<string> PathsList { get; set; }
+        private List<string> PathsList { get; set; }
         public List<Member> Members { get; set; }
 
         public void LoadMembers()
