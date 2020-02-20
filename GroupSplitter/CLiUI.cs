@@ -16,7 +16,7 @@ namespace GroupSplitter
 
         internal bool GroupCountRead(out int groupsCount)
         {
-            Console.WriteLine("How many output groups?");
+            Console.WriteLine("\nHow many output groups?");
             var res = int.TryParse(Console.ReadLine(), out groupsCount);
             return res && groupsCount > 0;
         }
@@ -24,7 +24,7 @@ namespace GroupSplitter
         internal bool PathRead(out string path)
         {
             path = Path.GetFullPath(".");
-            Console.WriteLine($"Current path is: {path}");
+            Console.WriteLine($"\nCurrent path is: {path}");
             Console.WriteLine("Type folder name (or relative/absolute path)");
             path = Console.ReadLine();
             if (Path.IsPathFullyQualified(path))
