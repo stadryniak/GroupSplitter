@@ -2,7 +2,7 @@
 
 namespace GroupSplitter
 {
-    class CLiUI
+    class CLiUi
     {
         internal bool PrintHelloMessage()
         {

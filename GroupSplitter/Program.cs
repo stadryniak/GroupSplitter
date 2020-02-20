@@ -8,7 +8,7 @@ namespace GroupSplitter
         static void Main()
         {
          //   int outGroupsCount = 0;
-            CLiUI ui = new CLiUI();
+            var ui = new CLiUi();
             bool success = ui.PrintHelloMessage();
             if (!success)
             {
@@ -16,7 +16,7 @@ namespace GroupSplitter
                 return;
             }
 
-            success = ui.GroupCountRead(out int groupsCount);
+            success = ui.GroupCountRead(out var groupsCount);
             if (!success)
             {
                 Console.WriteLine("Invalid groups number.");
