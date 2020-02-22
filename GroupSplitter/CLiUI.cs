@@ -16,7 +16,7 @@ namespace GroupSplitter
 
         internal bool GroupSizeRead(out int size)
         {
-            Console.WriteLine("How many people per group?");
+            Console.WriteLine("\nHow many people per group?");
             return int.TryParse(Console.ReadLine(), out size) && size > 0;
         }
 
