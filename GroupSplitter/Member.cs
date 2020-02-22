@@ -19,9 +19,9 @@ namespace GroupSplitter
             GroupsPreference = groupsPreference;
         }
 
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private List<int> GroupsPreference { get; set; }
+        internal string FirstName { get; set; }
+        internal string LastName { get; set; }
+        internal List<int> GroupsPreference { get; set; }
 
         public override string ToString()
         {
