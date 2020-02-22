@@ -22,7 +22,6 @@ namespace GroupSplitter
             {
                 ExtractDataFromFile(path);
             }
-
         }
 
         private void ExtractDataFromFile(string path)
