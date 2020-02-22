@@ -48,7 +48,6 @@ namespace GroupSplitter
             {
                 TryAddToGroup(member);
             }
-            RemoveGroupsOverflows();
         }
 
         private void TryAddToGroup(Member member)
