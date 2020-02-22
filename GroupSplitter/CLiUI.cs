@@ -14,6 +14,12 @@ namespace GroupSplitter
             return YesNoSelect(key);
         }
 
+        internal bool GroupSizeRead(out int size)
+        {
+            Console.WriteLine("How many people per group?");
+            return int.TryParse(Console.ReadLine(), out size) && size > 0;
+        }
+
         internal bool GroupCountRead(out int groupsCount)
         {
             Console.WriteLine("\nHow many output groups?");
