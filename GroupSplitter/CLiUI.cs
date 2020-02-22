@@ -11,7 +11,7 @@ namespace GroupSplitter
             Console.WriteLine("Put all user files in one folder.");
             Console.WriteLine("Is it done? [y/n]");
             var key = Console.ReadLine();
-            return yesNoSelect(key);
+            return YesNoSelect(key);
         }
 
         internal bool GroupCountRead(out int groupsCount)
@@ -44,10 +44,10 @@ namespace GroupSplitter
             }
             Console.WriteLine("\nConfirm folder selection [Y/n]");
             var key = Console.ReadLine();
-            return yesNoSelect(key);
+            return YesNoSelect(key);
         }
 
-        private bool yesNoSelect(string key)
+        private bool YesNoSelect(string key)
         {
             switch (key)
             {
