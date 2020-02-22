@@ -34,9 +34,11 @@ namespace GroupSplitter
 
 
             List<string> fileList = new List<string>(Directory.GetFiles(path));
-
             DataLoader dataLoader = new DataLoader(fileList);
             dataLoader.LoadMembers();
+
+            var splitter = new GroupSplitter {GroupCount = groupsCount, GroupSize = groupSize};
+            splitter.SplitIntoGroups(dataLoader.Members);
         }
     }
 }
