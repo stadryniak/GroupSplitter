@@ -26,6 +26,13 @@ namespace GroupSplitter
                 Console.WriteLine("Path input rejected.");
                 return;
             }
+
+            if (!ui.GroupSizeRead(out var groupSize))
+            {
+                Console.WriteLine("Invalid group size");
+            }
+
+
             List<string> fileList = new List<string>(Directory.GetFiles(path));
 
             DataLoader dataLoader = new DataLoader(fileList);
