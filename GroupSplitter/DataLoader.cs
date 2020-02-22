@@ -39,7 +39,7 @@ namespace GroupSplitter
             var matches = Regex.Matches(line, @"(\w+)", RegexOptions.IgnoreCase);
             if (matches.Count != 2)
             {
-                Console.WriteLine("More than first and last names provided.");
+                Console.WriteLine("More or less than first and last names provided.");
                 fileReader.Close();
                 return;
             }
@@ -50,7 +50,7 @@ namespace GroupSplitter
             line = fileReader.ReadLine();
             if (line == null)
             {
-                Console.WriteLine("Error while reading file.");
+                Console.WriteLine("Error while reading file. No groups.");
                 fileReader.Close();
                 return;
             }

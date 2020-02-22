@@ -33,7 +33,7 @@ namespace GroupSplitter
             }
             if (!Directory.Exists(path))
             {
-                Console.WriteLine("Directory doesn't exist.");
+                Console.WriteLine($"Directory \"{Path.GetFullPath(path)}\" doesn't exist.");
                 return false;
             }
             Console.WriteLine($"Absolute path of directory is: {Path.GetFullPath(path)}");

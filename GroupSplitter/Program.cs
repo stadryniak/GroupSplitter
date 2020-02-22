@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace GroupSplitter
 {
@@ -7,25 +8,27 @@ namespace GroupSplitter
     {
         static void Main()
         {
-            //   int outGroupsCount = 0;
             var ui = new CLiUi();
-            bool success = ui.PrintHelloMessage();
-            if (!success)
+            if (!ui.PrintHelloMessage())
             {
                 Console.WriteLine("Bye bye");
                 return;
             }
 
-            success = ui.GroupCountRead(out var groupsCount);
-            if (!success)
+            if (!ui.GroupCountRead(out var groupsCount))
             {
                 Console.WriteLine("Invalid groups number.");
                 return;
             }
 
-            Console.WriteLine(ui.PathRead(out var path));
+            if (!ui.PathRead(out var path))
+            {
+                Console.WriteLine("Path input rejected.");
+                return;
+            }
+            List<string> fileList = new List<string>(Directory.GetFiles(path));
 
-            DataLoader dataLoader = new DataLoader(new List<string>() { "../dane/dane.txt" });
+            DataLoader dataLoader = new DataLoader(fileList);
             dataLoader.LoadMembers();
         }
     }
