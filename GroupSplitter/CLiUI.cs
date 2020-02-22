@@ -49,14 +49,12 @@ namespace GroupSplitter
 
         private bool YesNoSelect(string key)
         {
-            switch (key)
+            return key switch
             {
-                case "y":
-                case "Y":
-                    return true;
-                default:
-                    return false;
-            }
+                "y" => true,
+                "Y" => true,
+                _ => false
+            };
         }
     }
 }
