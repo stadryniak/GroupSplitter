@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 
 namespace GroupSplitter
@@ -8,7 +9,8 @@ namespace GroupSplitter
     class GroupSplitter
     {
         public List<List<Member>> GroupsMemList { get; private set; }
-        public int groupSize { get; set; }
+        public int GroupSize { get; set; }
+        private readonly Random Rand = new Random();
         private int _groupCount;
         public int GroupCount
         {
@@ -41,19 +43,17 @@ namespace GroupSplitter
 
         public void SplitIntoGroups(List<Member> members)
         {
-            for (int i = 0; i < _groupCount; i++)
+            members = members.OrderBy(x => Rand.Next()).ToList();
+            foreach (var member in members)
             {
-                foreach (var member in members)
-                {
-                    GroupsMemList[member.GroupsPreference[i]].Add(member);
-                }
+                TryAddToGroup(member);
             }
             RemoveGroupsOverflows();
         }
 
-        private void RemoveGroupsOverflows()
+        private void TryAddToGroup(Member member)
         {
-            
+
         }
     }
 }
