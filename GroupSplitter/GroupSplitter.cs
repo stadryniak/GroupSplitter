@@ -25,7 +25,7 @@ namespace GroupSplitter
                     return;
                 }
 
-                List<Member> tmpList = new List<Member>();
+                var tmpList = new List<Member>();
                 foreach (var list in GroupsMemList)
                 {
                     tmpList.AddRange(list);
