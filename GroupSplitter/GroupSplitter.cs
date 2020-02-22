@@ -12,6 +12,7 @@ namespace GroupSplitter
         public int GroupSize { get; set; }
         private readonly Random Rand = new Random();
         private int _groupCount;
+
         public int GroupCount
         {
             get => _groupCount;
@@ -23,11 +24,13 @@ namespace GroupSplitter
                     InitializeGroupsMemList(value);
                     return;
                 }
+
                 List<Member> tmpList = new List<Member>();
                 foreach (var list in GroupsMemList)
                 {
                     tmpList.AddRange(list);
                 }
+
                 SplitIntoGroups(tmpList);
             }
         }
@@ -46,13 +49,21 @@ namespace GroupSplitter
             members = members.OrderBy(x => Rand.Next()).ToList();
             foreach (var member in members)
             {
-                TryAddToGroup(member);
+                if (!TryAddToGroup(member))
+                {
+                    Console.WriteLine($"Error while adding: {member}");
+                }
             }
         }
 
-        private void TryAddToGroup(Member member)
+        private bool TryAddToGroup(Member member)
         {
-
+            foreach (var i in member.GroupsPreference.Where(i => GroupsMemList[i].Count <= GroupSize))
+            {
+                GroupsMemList[i].Add(member);
+                return true;
+            }
+            return false;
         }
     }
 }
