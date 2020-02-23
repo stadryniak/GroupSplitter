@@ -84,16 +84,13 @@ namespace GroupSplitter
         {
             ValidateCapacity(members);
             members = members.OrderBy(x => _rand.Next()).ToList();
-            List<Member> remainingMembers = new List<Member>(members);
-            List<Member> currentMembers = new List<Member>(members);
-            for (int i = 0; i < _groupCount; i++)
+            var remainingMembers = new List<Member>(members);
+            var currentMembers = new List<Member>(members);
+            for (var i = 0; i < _groupCount; i++)
             {
-                foreach (var member in currentMembers)
+                foreach (var member in currentMembers.Where(member => TryAddToGroup(member, i)))
                 {
-                    if (TryAddToGroup(member, i))
-                    {
-                        remainingMembers.Remove(member);
-                    }
+                    remainingMembers.Remove(member);
                 }
                 currentMembers.Clear();
                 currentMembers.AddRange(remainingMembers);
