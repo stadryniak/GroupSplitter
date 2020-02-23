@@ -58,7 +58,7 @@ namespace GroupSplitter
 
         private bool TryAddToGroup(Member member)
         {
-            foreach (var i in member.GroupsPreference.Where(i => GroupsMemList[i - 1].Count <= GroupSize))
+            foreach (var i in member.GroupsPreference.Where(i => GroupsMemList[i - 1].Count < GroupSize))
             {
                 GroupsMemList[i - 1].Add(member);
                 return true;

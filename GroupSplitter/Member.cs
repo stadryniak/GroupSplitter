@@ -31,7 +31,7 @@ namespace GroupSplitter
                 groups += i.ToString() + " ";
             }
             groups.TrimEnd();
-            return FirstName + " " + LastName + " " + groups;
+            return FirstName + " " + LastName + "\t" + groups;
         }
     }
 }

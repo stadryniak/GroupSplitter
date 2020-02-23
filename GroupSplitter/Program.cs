@@ -21,17 +21,16 @@ namespace GroupSplitter
                 return;
             }
 
-            if (!ui.PathRead(out var path))
-            {
-                Console.WriteLine("Path input rejected.");
-                return;
-            }
-
             if (!ui.GroupSizeRead(out var groupSize))
             {
                 Console.WriteLine("Invalid group size");
             }
 
+            if (!ui.PathRead(out var path))
+            {
+                Console.WriteLine("Path input rejected.");
+                return;
+            }
 
             List<string> fileList = new List<string>(Directory.GetFiles(path));
             DataLoader dataLoader = new DataLoader(fileList);
@@ -39,6 +38,16 @@ namespace GroupSplitter
 
             var splitter = new GroupSplitter {GroupCount = groupsCount, GroupSize = groupSize};
             splitter.SplitIntoGroups(dataLoader.Members);
+
+            int i = 1;
+            foreach (var group in splitter.GroupsMemList)
+            {
+                Console.WriteLine($"\nGroup nr: {i++}\nGroup size:{group.Count}");
+                foreach (var member in group)
+                {
+                    Console.WriteLine(member);
+                }
+            }
         }
     }
 }
