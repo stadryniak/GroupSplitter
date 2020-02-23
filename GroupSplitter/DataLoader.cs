@@ -26,47 +26,56 @@ namespace GroupSplitter
 
         private void ExtractDataFromFile(string path)
         {
-            var fileReader = new StreamReader(path);
-            var line = fileReader.ReadLine();
-            if (line == null)
+            string firstName;
+            string lastName;
+            List<int> groups;
+            using (var fileReader = new StreamReader(path))
             {
-                Console.WriteLine("Error while reading file.");
-                fileReader.Close();
-                return;
-            }
-            // read lastName and firstName
-            var matches = Regex.Matches(line, @"(\w+)", RegexOptions.IgnoreCase);
-            if (matches.Count != 2)
-            {
-                Console.WriteLine("More or less than first and last names provided.");
-                fileReader.Close();
-                return;
-            }
-            var firstName = matches[0].Captures[0].ToString();
-            var lastName = matches[1].Captures[0].ToString();
-
-            // read groups
-            line = fileReader.ReadLine();
-            if (line == null)
-            {
-                Console.WriteLine("Error while reading file. No groups.");
-                fileReader.Close();
-                return;
-            }
-            List<int> groups = new List<int>();
-            matches = Regex.Matches(line, @"[0-9]+", RegexOptions.IgnoreCase);
-            foreach (Group match in matches)
-            {
-                bool isInt = Int32.TryParse(match.Captures[0].ToString(), out var res);
-                if (!isInt)
+                var line = fileReader.ReadLine();
+                if (line == null)
                 {
-                    Console.WriteLine($"Error while parsing groups for {firstName} {lastName}");
+                    Console.WriteLine("Error while reading file.");
                     fileReader.Close();
                     return;
                 }
-                groups.Add(res);
+
+                // read lastName and firstName
+                var matches = Regex.Matches(line, @"(\w+)", RegexOptions.IgnoreCase);
+                if (matches.Count != 2)
+                {
+                    Console.WriteLine("More or less than first and last names provided.");
+                    fileReader.Close();
+                    return;
+                }
+
+                firstName = matches[0].Captures[0].ToString();
+                lastName = matches[1].Captures[0].ToString();
+
+                // read groups
+                line = fileReader.ReadLine();
+                if (line == null)
+                {
+                    Console.WriteLine("Error while reading file. No groups.");
+                    fileReader.Close();
+                    return;
+                }
+
+                groups = new List<int>();
+                matches = Regex.Matches(line, @"[0-9]+", RegexOptions.IgnoreCase);
+                foreach (Group match in matches)
+                {
+                    bool isInt = int.TryParse(match.Captures[0].ToString(), out var res);
+                    if (!isInt)
+                    {
+                        Console.WriteLine($"Error while parsing groups for {firstName} {lastName}");
+                        fileReader.Close();
+                        return;
+                    }
+
+                    groups.Add(res);
+                }
             }
-            fileReader.Close();
+
             // initialize new member and add to loaded data
             Members.Add(Member.CreateInstance(firstName, lastName, groups));
         }
