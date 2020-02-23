@@ -47,23 +47,28 @@ namespace GroupSplitter
         public void SplitIntoGroups(List<Member> members)
         {
             members = members.OrderBy(x => Rand.Next()).ToList();
-            foreach (var member in members)
+            List<Member> remainingMembers = new List<Member>(members);
+            List<Member> currentMembers = new List<Member>(members);
+            for (int i = 0; i < _groupCount; i++)
             {
-                if (!TryAddToGroup(member))
+                foreach (var member in currentMembers)
                 {
-                    Console.WriteLine($"Error while adding: {member}");
+                    if (TryAddToGroup(member, i))
+                    {
+                        remainingMembers.Remove(member);
+                    }
                 }
+                currentMembers.Clear();
+                currentMembers.AddRange(remainingMembers);
+                currentMembers = currentMembers.OrderBy(x => Rand.Next()).ToList();
             }
         }
 
-        private bool TryAddToGroup(Member member)
+        private bool TryAddToGroup(Member member, int preference)
         {
-            foreach (var i in member.GroupsPreference.Where(i => GroupsMemList[i - 1].Count < GroupSize))
-            {
-                GroupsMemList[i - 1].Add(member);
-                return true;
-            }
-            return false;
+            if (GroupsMemList[member.GroupsPreference[preference] - 1].Count >= GroupSize) return false;
+            GroupsMemList[member.GroupsPreference[preference] - 1].Add(member);
+            return true;
         }
     }
 }
