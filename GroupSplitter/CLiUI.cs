@@ -7,9 +7,12 @@ namespace GroupSplitter
     {
         internal bool PrintHelloMessage()
         {
-
-            Console.WriteLine("Put all user files in one folder.");
-            Console.WriteLine("Is it done? [y/n]");
+            Console.WriteLine("Warning: output file will be written one level up relative to data directory.");
+            Console.WriteLine("Warning: new output file will override older one");
+            Console.WriteLine("\nInput file format:\nFIRSTNAME LASTNAME\nPREFFERED GROUPS");
+            Console.WriteLine("\nEXAMPLE:\nAdam Nowak\n1 2 3 4");
+            Console.WriteLine("\nPut all user files in one folder.");
+            Console.WriteLine("Is it done? [Y/n]");
             var key = Console.ReadLine();
             return YesNoSelect(key);
         }
@@ -48,6 +51,7 @@ namespace GroupSplitter
             {
                 Console.WriteLine(Path.GetFullPath(file));
             }
+            Console.WriteLine($"\nFound {Directory.GetFiles(path).Length} files");
             Console.WriteLine("\nConfirm folder selection [Y/n]");
             var key = Console.ReadLine();
             return YesNoSelect(key);

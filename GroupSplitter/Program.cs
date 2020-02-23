@@ -48,6 +48,10 @@ namespace GroupSplitter
                     Console.WriteLine(member);
                 }
             }
+
+            //create output file and write to it
+            using var writer = new StreamWriter(Path.Combine(path,"..", "OUTPUT.txt"));
+            splitter.WriteGroupsToFile(writer);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks.Dataflow;
 
 namespace GroupSplitter
 {
@@ -45,6 +47,21 @@ namespace GroupSplitter
                 }
                 ValidateCapacity(tmpList);
                 SplitIntoGroups(tmpList);
+            }
+        }
+
+        public void WriteGroupsToFile(StreamWriter writer)
+        {
+            int i = 1;
+            foreach (var group in GroupsMemList)
+            {
+                var j = 1;
+                writer.WriteLine($"Group {i++}\nGroup size: {group.Count}");
+                foreach (var member in group)
+                {
+                    writer.WriteLine(j++.ToString() + ". " + member);
+                }
+                writer.WriteLine("\n");
             }
         }
 
