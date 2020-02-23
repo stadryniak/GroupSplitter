@@ -4,9 +4,9 @@ using System.IO;
 
 namespace GroupSplitter
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
             var ui = new CLiUi();
             if (!ui.PrintHelloMessage())

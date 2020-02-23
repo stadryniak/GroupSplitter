@@ -6,7 +6,7 @@ using System.Threading.Tasks.Dataflow;
 
 namespace GroupSplitter
 {
-    class GroupSplitter
+    internal class GroupSplitter
     {
         public List<List<Member>> GroupsMemList { get; private set; }
 
@@ -52,7 +52,7 @@ namespace GroupSplitter
 
         public void WriteGroupsToFile(StreamWriter writer)
         {
-            int i = 1;
+            var i = 1;
             foreach (var group in GroupsMemList)
             {
                 var j = 1;

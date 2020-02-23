@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace GroupSplitter
 {
-    class DataLoader
+    internal class DataLoader
     {
         public DataLoader(List<string> paths)
         {
