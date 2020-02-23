@@ -12,23 +12,31 @@ namespace GroupSplitter
             if (!ui.PrintHelloMessage())
             {
                 Console.WriteLine("Bye bye");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
                 return;
             }
 
             if (!ui.GroupCountRead(out var groupsCount))
             {
                 Console.WriteLine("Invalid groups number.");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
                 return;
             }
 
             if (!ui.GroupSizeRead(out var groupSize))
             {
                 Console.WriteLine("Invalid group size");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
             }
 
             if (!ui.PathRead(out var path))
             {
                 Console.WriteLine("Path input rejected.");
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
                 return;
             }
 
