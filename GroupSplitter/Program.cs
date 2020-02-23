@@ -39,19 +39,12 @@ namespace GroupSplitter
             var splitter = new GroupSplitter {GroupCount = groupsCount, GroupSize = groupSize};
             splitter.SplitIntoGroups(dataLoader.Members);
 
-            int i = 1;
-            foreach (var group in splitter.GroupsMemList)
-            {
-                Console.WriteLine($"\nGroup nr: {i++}\nGroup size:{group.Count}");
-                foreach (var member in group)
-                {
-                    Console.WriteLine(member);
-                }
-            }
-
             //create output file and write to it
             using var writer = new StreamWriter(Path.Combine(path,"..", "OUTPUT.txt"));
             splitter.WriteGroupsToFile(writer);
+            Console.WriteLine("Splitter finished successfully");
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
         }
     }
 }

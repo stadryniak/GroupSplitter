@@ -59,7 +59,7 @@ namespace GroupSplitter
                 writer.WriteLine($"Group {i++}\nGroup size: {group.Count}");
                 foreach (var member in group)
                 {
-                    writer.WriteLine(j++.ToString() + ". " + member);
+                    writer.WriteLine(j++ + ". " + member);
                 }
                 writer.WriteLine("\n");
             }
@@ -88,9 +88,18 @@ namespace GroupSplitter
             var currentMembers = new List<Member>(members);
             for (var i = 0; i < _groupCount; i++)
             {
-                foreach (var member in currentMembers.Where(member => TryAddToGroup(member, i)))
+                foreach (var member in currentMembers)
                 {
-                    remainingMembers.Remove(member);
+                    if (member.GroupsPreference.Count != _groupCount)
+                    {
+                        Console.WriteLine($"Invalid count of preffered groups for\n{member}\nOmmiting.");
+                        remainingMembers.Remove(member);
+                        continue;
+                    }
+                    if (TryAddToGroup(member, i))
+                    {
+                        remainingMembers.Remove(member);
+                    }
                 }
                 currentMembers.Clear();
                 currentMembers.AddRange(remainingMembers);
@@ -100,9 +109,18 @@ namespace GroupSplitter
 
         private bool TryAddToGroup(Member member, int preference)
         {
-            if (GroupsMemList[member.GroupsPreference[preference] - 1].Count >= GroupSize) return false;
-            GroupsMemList[member.GroupsPreference[preference] - 1].Add(member);
-            return true;
+            try
+            {
+                if (GroupsMemList[member.GroupsPreference[preference] - 1].Count >= GroupSize) return false;
+                GroupsMemList[member.GroupsPreference[preference] - 1].Add(member);
+                return true;
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Invalid preffered group: {member.GroupsPreference[preference] - 1}\nMember:\n{member}");
+                return false;
+            }
         }
     }
 }
