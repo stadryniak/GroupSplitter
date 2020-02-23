@@ -61,7 +61,7 @@ namespace GroupSplitter
                 {
                     writer.WriteLine(j++ + ". " + member);
                 }
-                writer.WriteLine("\n");
+                writer.WriteLine();
             }
         }
 

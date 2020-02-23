@@ -42,8 +42,8 @@ namespace GroupSplitter
             //create output file and write to it
             using var writer = new StreamWriter(Path.Combine(path,"..", "OUTPUT.txt"));
             splitter.WriteGroupsToFile(writer);
-            Console.WriteLine("Splitter finished successfully");
-            Console.WriteLine("Press any key to exit");
+            Console.WriteLine("\nSplitter finished successfully");
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
     }
