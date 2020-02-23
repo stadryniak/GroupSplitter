@@ -1,17 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 
 namespace GroupSplitter
 {
     class GroupSplitter
     {
         public List<List<Member>> GroupsMemList { get; private set; }
-        public int GroupSize { get; set; }
-        private readonly Random Rand = new Random();
+
+        public int GroupSize
+        {
+            get => _groupSize;
+            set
+            {
+                _groupSize = value;
+                var tmpList = new List<Member>();
+                foreach (var list in GroupsMemList)
+                {
+                    tmpList.AddRange(list);
+                }
+                ValidateCapacity(tmpList);
+            }
+        }
+
+        private readonly Random _rand = new Random();
         private int _groupCount;
+        private int _groupSize;
 
         public int GroupCount
         {
@@ -24,13 +38,12 @@ namespace GroupSplitter
                     InitializeGroupsMemList(value);
                     return;
                 }
-
                 var tmpList = new List<Member>();
                 foreach (var list in GroupsMemList)
                 {
                     tmpList.AddRange(list);
                 }
-
+                ValidateCapacity(tmpList);
                 SplitIntoGroups(tmpList);
             }
         }
@@ -44,9 +57,16 @@ namespace GroupSplitter
             }
         }
 
+        private void ValidateCapacity(List<Member> members)
+        {
+            if (_groupCount * GroupSize >= members.Count) return;
+            throw new IndexOutOfRangeException("More members than spots.");
+        }
+
         public void SplitIntoGroups(List<Member> members)
         {
-            members = members.OrderBy(x => Rand.Next()).ToList();
+            ValidateCapacity(members);
+            members = members.OrderBy(x => _rand.Next()).ToList();
             List<Member> remainingMembers = new List<Member>(members);
             List<Member> currentMembers = new List<Member>(members);
             for (int i = 0; i < _groupCount; i++)
@@ -60,7 +80,7 @@ namespace GroupSplitter
                 }
                 currentMembers.Clear();
                 currentMembers.AddRange(remainingMembers);
-                currentMembers = currentMembers.OrderBy(x => Rand.Next()).ToList();
+                currentMembers = currentMembers.OrderBy(x => _rand.Next()).ToList();
             }
         }
 
