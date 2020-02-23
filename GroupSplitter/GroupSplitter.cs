@@ -77,6 +77,8 @@ namespace GroupSplitter
         private void ValidateCapacity(List<Member> members)
         {
             if (_groupCount * GroupSize >= members.Count) return;
+            Console.WriteLine("More members than spots");
+            Console.ReadKey();
             throw new IndexOutOfRangeException("More members than spots.");
         }
 
