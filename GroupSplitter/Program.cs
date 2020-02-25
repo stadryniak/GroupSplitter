@@ -36,8 +36,11 @@ namespace GroupSplitter
             DataLoader dataLoader = new DataLoader(fileList);
             dataLoader.LoadMembers();
 
-            var splitter = new GroupSplitter {GroupCount = groupsCount, GroupSize = groupSize};
-            splitter.SplitIntoGroups(dataLoader.Members);
+            var splitter = new GroupSplitter
+            {
+                GroupCount = groupsCount, GroupSize = groupSize, Members = dataLoader.Members
+            };
+            splitter.SplitIntoGroups();
 
             //create output file and write to it
             using var writer = new StreamWriter(Path.Combine(path,"..", "OUTPUT.txt"));

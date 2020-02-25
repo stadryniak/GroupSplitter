@@ -9,6 +9,7 @@ namespace GroupSplitter
     internal class GroupSplitter
     {
         public List<List<Member>> GroupsMemList { get; private set; }
+        public List<Member> Members { get; set; }
 
         public int GroupSize
         {
@@ -21,7 +22,6 @@ namespace GroupSplitter
                 {
                     tmpList.AddRange(list);
                 }
-                ValidateCapacity(tmpList);
             }
         }
 
@@ -45,8 +45,6 @@ namespace GroupSplitter
                 {
                     tmpList.AddRange(list);
                 }
-                ValidateCapacity(tmpList);
-                SplitIntoGroups(tmpList);
             }
         }
 
@@ -74,16 +72,16 @@ namespace GroupSplitter
             }
         }
 
-        private void ValidateCapacity(List<Member> members)
+        private void ValidateCapacity()
         {
-            if (_groupCount * GroupSize >= members.Count) return;
+            if (_groupCount * GroupSize >= Members.Count) return;
             throw new IndexOutOfRangeException("More members than spots.");
         }
 
-        public void SplitIntoGroups(List<Member> members)
+        public void SplitIntoGroups()
         {
-            ValidateCapacity(members);
-            members = members.OrderBy(x => _rand.Next()).ToList();
+            ValidateCapacity();
+            List<Member> members = Members.OrderBy(x => _rand.Next()).ToList();
             var remainingMembers = new List<Member>(members);
             var currentMembers = new List<Member>(members);
             for (var i = 0; i < _groupCount; i++)
