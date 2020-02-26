@@ -7,26 +7,13 @@ namespace GroupSplitter
 {
     internal class GroupSplitter
     {
-        public List<List<Member>> GroupsMemList { get; private set; }
+        public List<List<Member>> SplittedGroups { get; private set; }
         public List<Member> Members { get; set; }
 
-        public int GroupSize
-        {
-            get => _groupSize;
-            set
-            {
-                _groupSize = value;
-                var tmpList = new List<Member>();
-                foreach (var list in GroupsMemList)
-                {
-                    tmpList.AddRange(list);
-                }
-            }
-        }
+        public int GroupSize { get; set; }
 
         private readonly Random _rand = new Random();
         private int _groupCount;
-        private int _groupSize;
 
         public int GroupCount
         {
@@ -34,23 +21,14 @@ namespace GroupSplitter
             set
             {
                 _groupCount = value;
-                if (GroupsMemList == null)
-                {
-                    InitializeGroupsMemList(value);
-                    return;
-                }
-                var tmpList = new List<Member>();
-                foreach (var list in GroupsMemList)
-                {
-                    tmpList.AddRange(list);
-                }
+                if (SplittedGroups == null) InitializeGroupsMemList(value);
             }
         }
 
         public void WriteGroupsToFile(StreamWriter writer)
         {
             var i = 1;
-            foreach (var group in GroupsMemList)
+            foreach (var group in SplittedGroups)
             {
                 var j = 1;
                 writer.WriteLine($"Group {i++}\nGroup size: {group.Count}");
@@ -64,10 +42,10 @@ namespace GroupSplitter
 
         private void InitializeGroupsMemList(int size)
         {
-            GroupsMemList = new List<List<Member>>();
+            SplittedGroups = new List<List<Member>>();
             for (var i = 0; i < size; i++)
             {
-                GroupsMemList.Add(new List<Member>());
+                SplittedGroups.Add(new List<Member>());
             }
         }
 
@@ -75,6 +53,19 @@ namespace GroupSplitter
         {
             if (_groupCount * GroupSize >= Members.Count) return;
             throw new IndexOutOfRangeException("More members than spots.");
+        }
+
+        public bool TryValidatecapacity()
+        {
+            try
+            {
+                ValidateCapacity();
+                return true;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return false;
+            }
         }
 
         public void SplitIntoGroups()
@@ -108,8 +99,8 @@ namespace GroupSplitter
         {
             try
             {
-                if (GroupsMemList[member.GroupsPreference[preference] - 1].Count >= GroupSize) return false;
-                GroupsMemList[member.GroupsPreference[preference] - 1].Add(member);
+                if (SplittedGroups[member.GroupsPreference[preference] - 1].Count >= GroupSize) return false;
+                SplittedGroups[member.GroupsPreference[preference] - 1].Add(member);
                 return true;
             }
             catch (ArgumentOutOfRangeException ex)

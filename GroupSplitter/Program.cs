@@ -40,14 +40,19 @@ namespace GroupSplitter
                 return;
             }
 
-            List<string> fileList = new List<string>(Directory.GetFiles(path));
-            DataLoader dataLoader = new DataLoader(fileList);
+            var fileList = new List<string>(Directory.GetFiles(path));
+            var dataLoader = new DataLoader(fileList);
             dataLoader.LoadMembers();
 
             var splitter = new GroupSplitter
             {
                 GroupCount = groupsCount, GroupSize = groupSize, Members = dataLoader.Members
             };
+            if (!splitter.TryValidatecapacity())
+            {
+                Console.WriteLine("More members than spots.");
+                return;
+            }
             splitter.SplitIntoGroups();
 
             //create output file and write to it
