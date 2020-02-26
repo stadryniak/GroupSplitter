@@ -8,7 +8,7 @@ namespace GroupSplitter
 {
     internal class GroupSplitter
     {
-        public List<List<Member>> GroupsMemList { get; private set; }
+        public List<List<Member>> SplittedGroups { get; private set; }
         public List<Member> Members { get; set; }
 
         public int GroupSize
@@ -18,7 +18,7 @@ namespace GroupSplitter
             {
                 _groupSize = value;
                 var tmpList = new List<Member>();
-                foreach (var list in GroupsMemList)
+                foreach (var list in SplittedGroups)
                 {
                     tmpList.AddRange(list);
                 }
@@ -35,13 +35,13 @@ namespace GroupSplitter
             set
             {
                 _groupCount = value;
-                if (GroupsMemList == null)
+                if (SplittedGroups == null)
                 {
                     InitializeGroupsMemList(value);
                     return;
                 }
                 var tmpList = new List<Member>();
-                foreach (var list in GroupsMemList)
+                foreach (var list in SplittedGroups)
                 {
                     tmpList.AddRange(list);
                 }
@@ -51,7 +51,7 @@ namespace GroupSplitter
         public void WriteGroupsToFile(StreamWriter writer)
         {
             var i = 1;
-            foreach (var group in GroupsMemList)
+            foreach (var group in SplittedGroups)
             {
                 var j = 1;
                 writer.WriteLine($"Group {i++}\nGroup size: {group.Count}");
@@ -65,10 +65,10 @@ namespace GroupSplitter
 
         private void InitializeGroupsMemList(int size)
         {
-            GroupsMemList = new List<List<Member>>();
+            SplittedGroups = new List<List<Member>>();
             for (var i = 0; i < size; i++)
             {
-                GroupsMemList.Add(new List<Member>());
+                SplittedGroups.Add(new List<Member>());
             }
         }
 
@@ -109,8 +109,8 @@ namespace GroupSplitter
         {
             try
             {
-                if (GroupsMemList[member.GroupsPreference[preference] - 1].Count >= GroupSize) return false;
-                GroupsMemList[member.GroupsPreference[preference] - 1].Add(member);
+                if (SplittedGroups[member.GroupsPreference[preference] - 1].Count >= GroupSize) return false;
+                SplittedGroups[member.GroupsPreference[preference] - 1].Add(member);
                 return true;
             }
             catch (ArgumentOutOfRangeException ex)
