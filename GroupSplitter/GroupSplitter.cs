@@ -55,6 +55,19 @@ namespace GroupSplitter
             throw new IndexOutOfRangeException("More members than spots.");
         }
 
+        public bool TryValidatecapacity()
+        {
+            try
+            {
+                ValidateCapacity();
+                return true;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
         public void SplitIntoGroups()
         {
             ValidateCapacity();

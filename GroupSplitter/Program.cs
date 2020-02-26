@@ -40,6 +40,11 @@ namespace GroupSplitter
             {
                 GroupCount = groupsCount, GroupSize = groupSize, Members = dataLoader.Members
             };
+            if (!splitter.TryValidatecapacity())
+            {
+                Console.WriteLine("More members than spots.");
+                return;
+            }
             splitter.SplitIntoGroups();
 
             //create output file and write to it
