@@ -32,8 +32,8 @@ namespace GroupSplitter
                 return;
             }
 
-            List<string> fileList = new List<string>(Directory.GetFiles(path));
-            DataLoader dataLoader = new DataLoader(fileList);
+            var fileList = new List<string>(Directory.GetFiles(path));
+            var dataLoader = new DataLoader(fileList);
             dataLoader.LoadMembers();
 
             var splitter = new GroupSplitter
