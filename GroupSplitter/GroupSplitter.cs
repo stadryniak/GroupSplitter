@@ -11,23 +11,10 @@ namespace GroupSplitter
         public List<List<Member>> SplittedGroups { get; private set; }
         public List<Member> Members { get; set; }
 
-        public int GroupSize
-        {
-            get => _groupSize;
-            set
-            {
-                _groupSize = value;
-                var tmpList = new List<Member>();
-                foreach (var list in SplittedGroups)
-                {
-                    tmpList.AddRange(list);
-                }
-            }
-        }
+        public int GroupSize { get; set; }
 
         private readonly Random _rand = new Random();
         private int _groupCount;
-        private int _groupSize;
 
         public int GroupCount
         {
@@ -35,16 +22,7 @@ namespace GroupSplitter
             set
             {
                 _groupCount = value;
-                if (SplittedGroups == null)
-                {
-                    InitializeGroupsMemList(value);
-                    return;
-                }
-                var tmpList = new List<Member>();
-                foreach (var list in SplittedGroups)
-                {
-                    tmpList.AddRange(list);
-                }
+                if (SplittedGroups == null) InitializeGroupsMemList(value);
             }
         }
 
